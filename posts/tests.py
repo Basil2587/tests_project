@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from .models import Post, User
+from users.forms import User
 
 
 class SimpleTestCase(TestCase):
@@ -55,9 +56,10 @@ class SimpleTestCase(TestCase):
         response = self.client.get(f'/testname/{post.id}/')
         self.assertContains(response, test_2) 
         response = self.client.get("/")
-        self.assertContains(response, test_2) 
+        self.assertContains(response, test_2)
+        if post.author != self.user: 
+            self.assertRedirects(response, '/') 
         
-
     def tearDown(self):
         print('Excellent')
 
