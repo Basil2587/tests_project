@@ -57,8 +57,6 @@ class SimpleTestCase(TestCase):
         self.assertContains(response, test_2) 
         response = self.client.get("/")
         self.assertContains(response, test_2)
-        if post.author != self.user: 
-            self.assertRedirects(response, '/') 
         
     def tearDown(self):
         print('Excellent')
