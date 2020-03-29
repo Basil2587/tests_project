@@ -40,7 +40,7 @@ class SimpleTestCase(TestCase):
         self.assertContains(response, test_post)
         response = self.client.get("/testname/")
         self.assertContains(response, test_post)
-        post = Post.objects.get(author=self.user)        
+        post = Post.objects.get(author=self.user)
         response = self.client.get(f'/testname/{post.id}/')
         self.assertContains(response, test_post)
 
@@ -49,7 +49,7 @@ class SimpleTestCase(TestCase):
         test_post = 'Здесь находится пост testname'
         self.client.post("/new/", {"text":test_post}, follow=True)
         post = Post.objects.get(author=self.user)
-        test_2= 'Здесь находится пост testname, новоя редакция.' 
+        test_2 = 'Здесь находится пост testname, новоя редакция.' 
         self.client.post(f'/testname/{post.id}/edit', {"text":test_2}, follow=True)
         response = self.client.get("/testname/")
         self.assertContains(response, test_2)  

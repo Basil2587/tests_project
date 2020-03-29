@@ -8,7 +8,7 @@
                         <div class="card-body">
                                 <div class="h2">
                                     <!-- Имя автора -->
-                                    {{ profile.get_full_name }}
+                                    {{profile.get_full_name}}
                                 </div>
                                 <div class="h3 text-muted">
                                      <!-- username автора -->
@@ -41,7 +41,7 @@
                                         <!-- Ссылка на страницу автора в атрибуте href; username автора в тексте ссылки -->
                                         <a href="{% url 'profile' profile %}"><strong class="d-block text-gray-dark">@{{profile}}</strong></a>
                                         <!-- Текст поста -->
-                                        {{ posts.text|linebreaksbr }} 
+                                        {{posts.text|linebreaksbr}} 
                                 </p>
                                 <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group ">

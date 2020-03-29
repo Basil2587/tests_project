@@ -39,7 +39,7 @@ def post_new(request):
 
 def profile(request, username):
     profile = get_object_or_404(User, username=username)
-    post_numbers =  Post.objects.filter(author=profile).all().count()
+    post_numbers = Post.objects.filter(author=profile).all().count()
     posts = Post.objects.filter(author=profile).order_by("-pub_date").all()
     paginator = Paginator(posts, 5) # показывать по 5 записей на странице.
     page_number = request.GET.get('page') # переменная в URL с номером запрошенной страницы
@@ -54,8 +54,8 @@ def profile(request, username):
 
 def post_view(request, username, post_id):
     profile = get_object_or_404(User, username=username)
-    post_numbers =  Post.objects.filter(author=profile).all().count()
-    posts = Post.objects.get(id=post_id)
+    post_numbers = Post.objects.filter(author=profile).all().count()
+    posts = get_object_or_404(Post, id=post_id)
     return render(request, "post.html", {'posts': posts, 'post_numbers': post_numbers, "profile": profile})
 
 def post_edit(request, username, post_id):
