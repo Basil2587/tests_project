@@ -11,28 +11,24 @@ class SimpleTestCase(TestCase):
                         username="testname", email="myname@test.com", password="12345678"
                 )
         self.client.force_login(self.user)
-        
-    #Проверяем, что создается персональная страница
+
     def test_profile(self):
         response = self.client.get("/testname/")
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile.html')
-       
-    #Проверяем, что авторизованный пользователь может опубликовать свой пост.
+
     def test_authorision_post(self):
         test_post = 'Создали новый пост для ника testname'
         self.client.post("/new/", {"text":test_post})
         response = self.client.get('/')
         self.assertContains(response, test_post)
 
-    #Проверяем, что не авторизованный пользователь не может опубликовать свой пост.
     def test_not_authorision(self):
         self.client.logout()
         response = self.client.get('/new/', follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, '/auth/login/?next=/new/')
-        
-    #Проверяем, что авторизованный пользователь может опубликовать свой пост и он есть на всех страницах.
+
     def test_create_post(self):
         test_post = 'Создали новый пост для ника testname'
         self.client.post("/new/", {"text":test_post})
@@ -44,7 +40,6 @@ class SimpleTestCase(TestCase):
         response = self.client.get(f'/testname/{post.id}/')
         self.assertContains(response, test_post)
 
-    #Проверяем, что fвторизованный пользователь может отредактировать свой пост/
     def test_proverka(self):
         test_post = 'Здесь находится пост testname'
         self.client.post("/new/", {"text":test_post}, follow=True)
@@ -60,4 +55,3 @@ class SimpleTestCase(TestCase):
         
     def tearDown(self):
         print('Excellent')
-
