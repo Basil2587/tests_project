@@ -17,13 +17,13 @@ class SimpleTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profile.html')
 
-    def test_authorision_post(self):
+    def test_authorization_post(self):
         test_post = 'Создали новый пост для ника testname'
         self.client.post("/new/", {"text":test_post})
         response = self.client.get('/')
         self.assertContains(response, test_post)
 
-    def test_not_authorision(self):
+    def test_not_authorization(self):
         self.client.logout()
         response = self.client.get('/new/', follow=True)
         self.assertEqual(response.status_code, 200)
@@ -40,7 +40,7 @@ class SimpleTestCase(TestCase):
         response = self.client.get(f'/testname/{post.id}/')
         self.assertContains(response, test_post)
 
-    def test_proverka(self):
+    def test_edit_post(self):
         test_post = 'Здесь находится пост testname'
         self.client.post("/new/", {"text":test_post}, follow=True)
         post = Post.objects.get(author=self.user)
